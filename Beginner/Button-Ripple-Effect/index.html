@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Button Ripple Effect</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--background);
+        font-family: Arial, sans-serif;
+      }
+
+      :root {
+        --background: #f4faff;
+        --btn-bg: #e2a3c7;
+        --btn-text: white;
+        --btn-hover: #d67ab1;
+      }
+
+      .btn {
+        background-color: var(--btn-bg);
+        padding: 44px 88px;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        background-color: var(--btn-hover);
+        width: 0;
+        height: 0;
+        left: var(--xPos);
+        top: var(--yPos);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        transition: width 0.5s, height 0.5s;
+      }
+
+      .btn:hover::before {
+        width: 620px;
+        height: 620px;
+      }
+
+      .btn span {
+        font-size: 28px;
+        color: var(--btn-text);
+        position: relative;
+        z-index: 5;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#" class="btn">
+      <span>Button</span>
+    </a>
+
+    <script>
+      const btnEl = document.querySelector(".btn");
+
+      btnEl.addEventListener("mouseenter", (event) => {
+        const rect = btnEl.getBoundingClientRect();
+        const x = event.pageX - rect.left;
+        const y = event.pageY - rect.top;
+
+        btnEl.style.setProperty("--xPos", x + "px");
+        btnEl.style.setProperty("--yPos", y + "px");
+      });
+    </script>
+  </body>
+</html>
