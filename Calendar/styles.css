@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  font-family: cursive, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+:root {
+  --background-color: #f4f4f4;
+  --card-color: #fff;
+  --background-image: url(./assets/months/january.png);
+}
+
+.january {
+  --background-color: #0186cb;
+  --card-color: #fff;
+  --background-image: url(./assets/months/january.png);
+}
+
+.february {
+  --background-color: #bff0fe;
+  --card-color: #fff;
+  --background-image: url(./assets/months/february.png);
+}
+
+.march {
+  --background-color: #ffa7c5;
+  --card-color: #fff;
+  --background-image: url(./assets/months/march.png);
+}
+
+.april {
+  --background-color: #01c5a1;
+  --card-color: #fff;
+  --background-image: url(./assets/months/april.png);
+}
+
+.may {
+  --background-color: #cbda01;
+  --card-color: #fff;
+  --background-image: url(./assets/months/may.png);
+}
+
+.june {
+  --background-color: #00b7e1;
+  --card-color: #fff;
+  --background-image: url(./assets/months/june.png);
+}
+
+.july {
+  --background-color: #00a964;
+  --card-color: #fff;
+  --background-image: url(./assets/months/july.png);
+}
+
+.august {
+  --background-color: #007c7e;
+  --card-color: #fff;
+  --background-image: url(./assets/months/august.png);
+}
+
+.september {
+  --background-color: #ffc100;
+  --card-color: #fff;
+  --background-image: url(./assets/months/september.png);
+}
+
+.october {
+  --background-color: #ff9e01;
+  --card-color: #fff;
+  --background-image: url(./assets/months/october.png);
+}
+
+.november {
+  --background-color: #ff7537;
+  --card-color: #fff;
+  --background-image: url(./assets/months/november.png);
+}
+
+.december {
+  --background-color: #00408a;
+  --card-color: #fff;
+  --background-image: url(./assets/months/december.png);
+}
+
+.calender-container {
+  background-color: var(--card-color);
+  width: 350px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  padding-top: 8px;
+  overflow: hidden;
+  /* hidden to remove the extra overlapping of children */
+}
+
+.month {
+  margin: 0;
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+
+  background-image: var(--background-image);
+  /* background-color: var(--highlight-color); */
+  background-size: cover;
+  background-position: center;
+
+  width: 100%;
+  height: 148px;
+}
+
+.week-day {
+  font-size: 24px;
+  margin-bottom: 0;
+  margin-top: 6px;
+  color: darkgray;
+}
+
+.date {
+  font-size: 72px;
+  margin: 0;
+  font-weight: bold;
+  color: var(--background-color);
+}
+
+.year {
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: darkgray;
+  font-weight: 500;
+}
