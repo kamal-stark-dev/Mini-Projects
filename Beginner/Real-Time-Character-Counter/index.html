@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Real Time Character Counter</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(255, 161, 151);
+      }
+
+      .container {
+        background-color: rgb(241, 214, 218);
+        padding: 32px;
+        border-radius: 6px;
+        border: 1px solid black;
+      }
+
+      .container h1 {
+        margin: 0 0 0 0;
+        font-size: 28px;
+        margin-bottom: 18px;
+      }
+
+      .container textarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+        padding: 8px;
+        font-size: 18px;
+        box-sizing: border-box;
+      }
+
+      .char-counter {
+        display: flex;
+        font-size: 18px;
+        margin-top: 18px;
+        justify-content: space-between;
+      }
+
+      #total-chars {
+        color: slateblue;
+      }
+      #remaining-chars {
+        color: coral;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Real-Time Character Counter</h1>
+      <textarea
+        id="textarea"
+        placeholder="write your text here..."
+        maxlength="100"
+      ></textarea>
+      <div class="char-counter">
+        <span>Total: <span id="total-chars">0</span></span>
+        <span>Remaining: <span id="remaining-chars">100</span></span>
+      </div>
+    </div>
+
+    <script>
+      const textareaEl = document.getElementById("textarea");
+      textareaEl.addEventListener("keyup", () => {
+        updateCounter();
+      });
+
+      const totalCounterEl = document.getElementById("total-chars");
+      const remainingCounterEl = document.getElementById("remaining-chars");
+
+      function updateCounter() {
+        // total chars
+        totalCounterEl.innerText = textareaEl.value.length;
+
+        // remaining chars
+        remainingCounterEl.innerText =
+          textareaEl.getAttribute("maxlength") - textareaEl.value.length;
+      }
+
+      updateCounter();
+    </script>
+  </body>
+</html>
