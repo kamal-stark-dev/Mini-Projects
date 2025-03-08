@@ -9,3 +9,4 @@
 3. Random Images - [Link](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Random-Images/index.html)
 4. Text Animation - [Link](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Text-Animation/index.html)
 5. Character Counter - [Link](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Real-Time-Character-Counter/index.html)
+6. Digital Clock - [Link](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Digital-Clock/index.html)
