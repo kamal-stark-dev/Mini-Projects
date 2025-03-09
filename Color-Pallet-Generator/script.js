@@ -1,10 +1,10 @@
-const pallete = document.querySelector(".pallete");
+const pallet = document.querySelector(".js-pallet");
 
-let palleteHTML = ``;
+let palletHTML = ``;
 for (let i = 0; i < 4; i++) {
-  palleteHTML += `<div class="color"><span>${randomColor()}</span></div>`;
+  palletHTML += `<div class="color"><span>${randomColor()}</span></div>`;
 }
-pallete.innerHTML = palleteHTML;
+pallet.innerHTML = palletHTML;
 
 document.querySelectorAll(".color").forEach((colorEl) => {
   const bgColor = colorEl.innerText;
