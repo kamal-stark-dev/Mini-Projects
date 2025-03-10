@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rotating Image Gallery</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="image-container">
+      <span style="--i: 1">
+        <img
+          src="https://inforadar.disway.id/upload/225a7bd7b8c7db9ec5fb277a7a0f9ddf.jpg"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 2">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/East-Blue-Saga.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 3">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Arabasta-arc.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 4">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Skypiea-Saga.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 5">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/water-7.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 6">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Thriller-Bark.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 7">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Whitebeard-in-Marineford.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 8">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/fishman-island-saga.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 9">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Dressrosa.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 10">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Whole-Cake-Island-Saga.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 11">
+        <img
+          src="https://beebom.com/wp-content/uploads/2022/12/Wano-Country-Saga.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+      <span style="--i: 12">
+        <img
+          src="https://beebom.com/wp-content/uploads/2023/12/star-hat-pirates-in-Egghead.jpg?quality=75&strip=all"
+          alt="Image 1"
+        />
+      </span>
+    </div>
+
+    <div class="btn-container">
+      <button class="btn" id="prev">Prev</button>
+      <button class="btn" id="auto">Auto</button>
+      <button class="btn" id="next">Next</button>
+    </div>
+
+    <div class="video-background">
+      <video autoplay muted loop>
+        <!-- https://moewalls.com/tag/one-piece/page/3/ -->
+        <!-- https://wallpapers.video/one-piece/ -->
+        <source src="./assets/video-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
