@@ -19,9 +19,8 @@ header h2 {
   color: #111;
 }
 
-.pallete {
+.pallet {
   display: flex;
-  /* flex-wrap: wrap; */
   height: calc(100vh - 54px);
 }
 
@@ -35,5 +34,18 @@ header h2 {
   color: light-dark(white, black);
 }
 .color span {
+  font-size: 24px;
   cursor: pointer;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tooltip {
+  position: absolute;
+  color: white;
+  background-color: #111;
+  padding: 6px;
+  font-size: 12px;
+  display: none;
+  z-index: 10;
 }

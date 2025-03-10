@@ -34,8 +34,6 @@ function randomColor() {
   return color;
 }
 
-console.log(randomColor());
-
 document.querySelector("body").addEventListener("keydown", (event) => {
   //   event.preventDefault();
   if (event.key === " ") {
@@ -44,12 +42,24 @@ document.querySelector("body").addEventListener("keydown", (event) => {
 });
 
 document.querySelectorAll(".color").forEach((color) => {
-  color.addEventListener("click", () => copyToClipboard(color.innerText));
+  color.addEventListener("click", (event) => {
+    copyToClipboard(color.innerText);
+    showTooltip(event);
+  });
 });
 
 // copy to clipboard
 function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    console.log("Text Copied");
-  });
+  navigator.clipboard.writeText(text);
+}
+
+function showTooltip(event) {
+  const tooltip = document.getElementById("tooltip");
+  tooltip.style.display = "block";
+  tooltip.style.left = `${event.pageX}px`;
+  tooltip.style.top = `${event.pageY + 20}px`;
+
+  setTimeout(() => {
+    tooltip.style.display = "none";
+  }, 2000);
 }
