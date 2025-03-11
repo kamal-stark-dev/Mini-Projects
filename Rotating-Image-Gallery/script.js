@@ -39,5 +39,5 @@ document.querySelector("body").addEventListener("keydown", (event) => {
 });
 
 function updateGallery(x) {
-  imageContainer.style.transform = `perspective(800px) rotateY(${x}deg)`;
+  imageContainer.style.transform = `perspective(750px) rotateY(${x}deg)`;
 }

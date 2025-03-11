@@ -27,7 +27,7 @@ body {
   width: 200px;
   height: 200px;
   transform-style: preserve-3d;
-  transform: perspective(800px) rotateY(0deg);
+  transform: perspective(750px) rotateY(-30deg);
   position: relative;
   transition: transform 0.5s ease-in-out;
 }
