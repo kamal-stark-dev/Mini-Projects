@@ -6,53 +6,38 @@ const autoEl = document.getElementById("auto");
 let x = 0;
 let intervalId;
 
-prevEl.addEventListener("click", () => {
-  x += 45;
+function rotateGallery(direction) {
+  x += direction;
   updateGallery(x);
-});
+}
 
-nextEl.addEventListener("click", () => {
-  x -= 45;
-  updateGallery(x);
-});
-
-autoEl.addEventListener("click", () => {
+function toggleAutoRotate() {
   if (intervalId) {
     clearInterval(intervalId);
     intervalId = null;
     autoEl.textContent = "Auto";
   } else {
     intervalId = setInterval(() => {
-      x -= 45;
-      updateGallery(x);
-    }, 2000);
+      rotateGallery(-30);
+    }, 1600);
     autoEl.textContent = "Stop";
+  }
+}
+
+prevEl.addEventListener("click", () => rotateGallery(30));
+nextEl.addEventListener("click", () => rotateGallery(-30));
+autoEl.addEventListener("click", toggleAutoRotate);
+
+document.querySelector("body").addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    rotateGallery(30);
+  } else if (event.key === "ArrowRight") {
+    rotateGallery(-30);
+  } else if (event.key === " ") {
+    toggleAutoRotate();
   }
 });
 
 function updateGallery(x) {
   imageContainer.style.transform = `perspective(800px) rotateY(${x}deg)`;
 }
-
-// key handling
-document.querySelector("body").addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
-    x += 45;
-    updateGallery(x);
-  } else if (event.key === "ArrowRight") {
-    x -= 45;
-    updateGallery(x);
-  } else if (event.key === " ") {
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
-      autoEl.textContent = "Auto";
-    } else {
-      intervalId = setInterval(() => {
-        x -= 45;
-        updateGallery(x);
-      }, 2000);
-      autoEl.textContent = "Stop";
-    }
-  }
-});
