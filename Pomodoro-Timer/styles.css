@@ -1,0 +1,113 @@
+* {
+  font-family: monospace;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: url(https://wallpaperaccess.com/full/15691710.jpg);
+  background-size: cover;
+  color: white;
+}
+
+.container {
+  border: 6px solid white;
+  border-radius: 32px;
+  padding: 42px;
+  border-style: dashed;
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  font-size: 32px;
+  text-align: center;
+}
+
+.timer {
+  font-size: 54px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btns {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.btns button {
+  padding: 6px 18px;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: 0.2s;
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+}
+
+.btns button:hover {
+  transform: scale(1.08);
+}
+
+/* #start {
+  background-color: rgb(11, 192, 11);
+}
+
+#stop {
+  background-color: rgb(243, 82, 82);
+}
+
+#reset {
+  background-color: white;
+} */
+
+/* music player */
+.music-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  margin: 12px;
+  border: 2px solid white;
+  border-style: dashed;
+}
+
+.music-container .track-image {
+  width: 230px;
+  border-radius: 6px;
+}
+
+.music-player {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 16px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  padding: 12px;
+  border: 2px solid white;
+  border-style: dashed;
+}
+
+.music-player i {
+  font-size: 24px;
+  transition: 0.2s;
+}
+
+.music-player i:hover {
+  transform: scale(1.2);
+}

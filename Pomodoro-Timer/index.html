@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- TODO: music and miniplayer + fullscreen mode + changing backgrounds -->
+    <div class="container">
+      <h1 class="title">Pomodoro Timer</h1>
+      <div class="timer">
+        <span id="timer">25:00</span>
+      </div>
+      <div class="btns">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+
+    <div class="music-container">
+      <img
+        class="track-image"
+        src="https://i.pinimg.com/736x/5f/c1/d5/5fc1d5a6a37d8ec7f41f1317de7b786e.jpg"
+        alt="Track Image"
+      />
+      <audio id="song">
+        <source
+          src="https://ia601701.us.archive.org/34/items/Minecraft_OST/Aria%20Math.mp3"
+        />
+      </audio>
+      <div class="music-player">
+        <!-- <i class="ri-pause-fill"></i> -->
+        <i class="ri-rewind-fill" id="prevSong"></i>
+        <i class="ri-replay-10-line" id="replay10"></i>
+        <i class="ri-play-fill" id="playPause"></i>
+        <i class="ri-forward-10-line" id="forward10"></i>
+        <i class="ri-speed-fill" id="nextSong"></i>
+      </div>
+    </div>
+
+    <script src="./scripts/timer.js"></script>
+    <script src="./scripts/musicPlayer.js"></script>
+  </body>
+</html>
