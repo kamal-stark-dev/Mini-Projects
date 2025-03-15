@@ -112,6 +112,11 @@ body {
 
 #song-title {
   overflow: hidden;
+  font-weight: bold;
+  letter-spacing: 1px;
+  max-width: 120px;
+  overflow: hidden;
+  text-wrap: nowrap;
 }
 
 .music-player i {
