@@ -111,3 +111,7 @@ body {
 .music-player i:hover {
   transform: scale(1.2);
 }
+
+#playPause {
+  font-size: 32px;
+}
