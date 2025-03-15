@@ -30,6 +30,6 @@ function updateCountdown() {
   hoursLeft.innerText = h;
   minutesLeft.innerText = m;
   secondsLeft.innerText = s;
-
-  setInterval(updateCountdown, 1000);
 }
+
+setInterval(updateCountdown, 1000);
