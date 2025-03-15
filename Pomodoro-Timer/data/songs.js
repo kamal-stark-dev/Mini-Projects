@@ -63,7 +63,7 @@ export const songs = [
     bannerLink:
       "https://i.pinimg.com/736x/86/5c/99/865c99e6ad9da409fa91d42005c50dce.jpg",
     songLink:
-      "https://ia801701.us.archive.org/34/items/Minecraft_OST/Mice%20on%20Venus.mp3",
+      "https://ia801701.us.archive.org/34/items/Minecraft_OST/Mice%20On%20Venus.mp3",
   },
   {
     bannerLink:
@@ -87,7 +87,7 @@ export const songs = [
     bannerLink:
       "https://i.pinimg.com/736x/0e/8f/e3/0e8fe32898e50b90e8b08a831b073bac.jpg",
     songLink:
-      "https://ia801701.us.archive.org/34/items/Minecraft_OST/Shunji.mp3",
+      "https://ia801701.us.archive.org/34/items/Minecraft_OST/Shuniji.mp3",
   },
   {
     bannerLink:
@@ -99,6 +99,6 @@ export const songs = [
     bannerLink:
       "https://i.pinimg.com/736x/df/c7/22/dfc722d72743f5c7325fba6e7bfecd50.jpg",
     songLink:
-      "https://ia801701.us.archive.org/34/items/Minecraft_OST/Wet%20hands.mp3",
+      "https://ia801701.us.archive.org/34/items/Minecraft_OST/Wet%20Hands.mp3",
   },
 ];

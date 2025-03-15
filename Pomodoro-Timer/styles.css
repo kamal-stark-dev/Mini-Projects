@@ -86,7 +86,7 @@ body {
 }
 
 .music-container .track-image {
-  width: 230px;
+  width: 240px;
   border-radius: 6px;
 }
 
@@ -114,9 +114,13 @@ body {
   overflow: hidden;
   font-weight: bold;
   letter-spacing: 1px;
-  max-width: 120px;
-  overflow: hidden;
+  max-width: 130px;
+  overflow-x: scroll;
   text-wrap: nowrap;
+}
+
+.song-info ::-webkit-scrollbar {
+  display: none;
 }
 
 .music-player i {
