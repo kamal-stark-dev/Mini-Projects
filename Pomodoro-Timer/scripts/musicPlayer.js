@@ -46,6 +46,10 @@ function changeSong(idx = 0) {
   song.getElementsByTagName("source")[0].src = songs[idx].songLink;
   song.load(); // to load the new song
   songTitleEl.innerText = getSongTitle();
+
+  playPause.classList.remove("ri-play-fill");
+  playPause.classList.add("ri-pause-fill");
+  song.play();
 }
 // changeSong(idx);
 
@@ -88,12 +92,12 @@ forwardEl.addEventListener("click", () => {
 
 function playPauseSong() {
   if (song.paused) {
-    playPause.classList.toggle("ri-pause-fill");
-    playPause.classList.toggle("ri-play-fill");
+    playPause.classList.remove("ri-play-fill");
+    playPause.classList.add("ri-pause-fill");
     song.play();
   } else {
-    playPause.classList.toggle("ri-pause-fill");
-    playPause.classList.toggle("ri-play-fill");
+    playPause.classList.remove("ri-pause-fill");
+    playPause.classList.add("ri-play-fill");
     song.pause();
   }
 }
