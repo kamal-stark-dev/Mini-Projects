@@ -10,6 +10,9 @@ const songTitleEl = document.getElementById("song-title");
 const rewindEl = document.getElementById("rewind10");
 const forwardEl = document.getElementById("forward10");
 
+const prevSongEl = document.getElementById("prevSong");
+const nextSongEl = document.getElementById("nextSong");
+
 const trackImageEl = document.getElementById("track-image");
 
 document.querySelector("body").addEventListener("keydown", (event) => {
@@ -22,15 +25,39 @@ document.querySelector("body").addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
     rewind10seconds();
   }
+  if (event.ctrlKey) {
+    if (event.key === "ArrowLeft") {
+      idx = (idx - 1 + songsLength) % songsLength;
+      changeSong(idx);
+    }
+    if (event.key === "ArrowRight") {
+      idx = (idx + 1) % songsLength;
+      changeSong(idx);
+    }
+  }
 });
 
 // song link
-function changeSong(idx = 2) {
+let idx = 0;
+const songsLength = songs.length;
+
+function changeSong(idx = 0) {
   trackImageEl.src = songs[idx].bannerLink;
   song.getElementsByTagName("source")[0].src = songs[idx].songLink;
   song.load(); // to load the new song
+  songTitleEl.innerText = getSongTitle();
 }
-changeSong(2);
+// changeSong(idx);
+
+prevSongEl.addEventListener("click", () => {
+  idx = (idx - 1 + songsLength) % songsLength;
+  changeSong(idx);
+});
+
+nextSongEl.addEventListener("click", () => {
+  idx = (idx + 1) % songsLength;
+  changeSong(idx);
+});
 
 // song title
 songTitleEl.innerText = getSongTitle();
