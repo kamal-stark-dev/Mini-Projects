@@ -1,3 +1,5 @@
+import { songs } from "../data/songs.js";
+
 const song = document.getElementById("song");
 
 const playPause = document.getElementById("playPause");
@@ -8,9 +10,7 @@ const songTitleEl = document.getElementById("song-title");
 const rewindEl = document.getElementById("rewind10");
 const forwardEl = document.getElementById("forward10");
 
-playPause.addEventListener("click", () => {
-  playPauseSong();
-});
+const trackImageEl = document.getElementById("track-image");
 
 document.querySelector("body").addEventListener("keydown", (event) => {
   if (event.key === " ") {
@@ -24,11 +24,23 @@ document.querySelector("body").addEventListener("keydown", (event) => {
   }
 });
 
+// song link
+function changeSong(idx = 2) {
+  trackImageEl.src = songs[idx].bannerLink;
+  song.getElementsByTagName("source")[0].src = songs[idx].songLink;
+  song.load(); // to load the new song
+}
+changeSong(2);
+
 // song title
 songTitleEl.innerText = getSongTitle();
 
 // song volume
 song.volume = 0.4;
+
+playPause.addEventListener("click", () => {
+  playPauseSong();
+});
 
 song.addEventListener("loadedmetadata", () => {
   durationEl.innerText = formatTime(song.duration);
@@ -58,8 +70,6 @@ function playPauseSong() {
     song.pause();
   }
 }
-
-console.log(song.getElementsByTagName("source")[0].src);
 
 function formatTime(totalSeconds) {
   const minutes = Math.floor(totalSeconds / 60);
