@@ -103,6 +103,17 @@ body {
   border-style: dashed;
 }
 
+.song-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin: 0 4px;
+}
+
+#song-title {
+  overflow: hidden;
+}
+
 .music-player i {
   font-size: 24px;
   transition: 0.2s;
