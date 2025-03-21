@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background-color: #e396df;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  justify-content: center;
+}
+
+.title {
+  font-size: 56px;
+  letter-spacing: 4px;
+  text-shadow: 3px 3px #fff;
+}
+
+.instruments {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.instruments div {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.instruments div span {
+  font-size: 24px;
+  background-color: red;
+  width: 100%;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.instruments img {
+  width: 230px;
+  aspect-ratio: 1 / 1.4;
+  object-fit: cover;
+}
+
+.background-music {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 24px;
+  border: 2px solid black;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.background-music.clicked {
+  color: #e396df;
+  background-color: black;
+}
