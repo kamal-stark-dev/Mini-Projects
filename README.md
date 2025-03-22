@@ -14,3 +14,4 @@
 6. Digital Clock - [Link](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Digital-Clock/index.html)
 7. Loan Calculator - [Calculator](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Loan-Calculator/index.html)
 8. New Year Counter - [Counter](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Countdown-To-Next-Year/index.html)
+9. Drum Kits - [Kit](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Drum-Kits/index.html)
