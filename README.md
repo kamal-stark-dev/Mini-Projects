@@ -5,6 +5,8 @@
 3. Rotating Image Gallery (_One Piece_) - [Image Gallery](https://kamal-stark-dev.github.io/Mini-Projects/Rotating-Image-Gallery/index.html)
 4. Etch-a-Sketch - [Start Sketching](https://kamal-stark-dev.github.io/Mini-Projects/Etch-a-Sketch/index.html)
 
+![Demo](./Etch-a-Sketch/demo.png)
+
 # Beginner
 
 1. Button Ripple Effect - [Link](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Button-Ripple-Effect/index.html)
