@@ -19,3 +19,5 @@
 8. New Year Counter - [Counter](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Countdown-To-Next-Year/index.html)
 9. Drum Kits - [Kit](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Drum-Kits/index.html)
 10. Analog Clock - [Clock](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Analog-Clock/index.html)
+11. Loading Bar - [Loader](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Loading%20Bar/index.html)
+12. Mouse Pos - [Get Position](https://kamal-stark-dev.github.io/Mini-Projects/Beginner/Mouse%20Pos/index.html)
