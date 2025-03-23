@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading Bar</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+        color: #6464f0;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .container {
+        text-align: center;
+        width: 300px;
+        position: relative;
+      }
+
+      .counter {
+        font-size: 18px;
+      }
+
+      .loading-bar-back {
+        position: absolute;
+        height: 8px;
+        background-color: #eee;
+        width: 100%;
+        border: none;
+      }
+
+      .loading-bar-front {
+        position: absolute;
+        height: 8px;
+        background-color: #6464f0;
+        width: 0%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Loading</h1>
+      <div class="counter">0%</div>
+      <hr class="loading-bar-back" />
+      <hr class="loading-bar-front" />
+    </div>
+
+    <script>
+      const counterEl = document.querySelector(".counter");
+      const barEl = document.querySelector(".loading-bar-front");
+
+      let idx = 0;
+
+      function updateBar() {
+        counterEl.innerText = idx + "%";
+        barEl.style.width = idx + "%";
+
+        idx += 1;
+        if (idx <= 100) {
+          setTimeout(updateBar, Math.random() * 50 + 10); // to add realistic feel
+        }
+      }
+
+      updateBar();
+    </script>
+  </body>
+</html>
