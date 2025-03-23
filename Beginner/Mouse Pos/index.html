@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mouse Pos</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #111;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .container {
+        display: flex;
+        width: 80%;
+        justify-content: space-around;
+      }
+      .container div {
+        border: 2px dashed white;
+        padding: 12px 24px;
+        position: relative;
+        width: 100px;
+        height: 80px;
+      }
+      .container div p {
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .container div span {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 32px;
+      }
+      #note {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mouseX">
+        <p>X Pos:</p>
+        <span id="x-pos">0</span>
+      </div>
+      <div class="mouseY">
+        <p>Y Pos:</p>
+        <span id="y-pos">0</span>
+      </div>
+    </div>
+
+    <div id="note">In Pixels (px)</div>
+
+    <script>
+      const xPosEl = document.querySelector("#x-pos");
+      const yPosEl = document.querySelector("#y-pos");
+
+      window.addEventListener("mousemove", (event) => {
+        const x = event.x;
+        const y = event.y;
+
+        xPosEl.innerText = x;
+        yPosEl.innerText = y;
+      });
+    </script>
+  </body>
+</html>
