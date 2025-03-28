@@ -24,6 +24,7 @@ body {
 }
 
 .calculator button {
+  cursor: pointer;
   width: 64px;
   aspect-ratio: 1 / 1;
   padding: 6px 8px;
@@ -49,6 +50,7 @@ body {
   position: relative;
   padding: 16px;
   color: white;
+  overflow: hidden;
 }
 
 #mini-display {
