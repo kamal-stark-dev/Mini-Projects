@@ -1,4 +1,5 @@
 const displayEl = document.querySelector("#display");
+const miniDisplayEl = document.querySelector("#mini-display");
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -79,34 +80,72 @@ buttons.forEach((button) => {
     const value = getVal(event.currentTarget.id);
 
     if (value === "AC") {
-      // Reset everything
       displayStr = "";
       num1 = null;
       operation = null;
       num2 = null;
       displayEl.innerText = "0";
+      miniDisplayEl.innerText = ""; // Clear mini-display
     } else if (value === "=") {
-      // Perform calculation
       if (num1 !== null && operation && displayStr) {
         num2 = parseFloat(displayStr);
         const result = operate(num1, operation, num2);
+        miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`; // Update mini-display
         displayEl.innerText = result;
-        displayStr = ""; // Reset display string for next input
-        num1 = null; // Reset stored values
+        displayStr = "";
+        num1 = null;
         operation = null;
         num2 = null;
       }
     } else if (["+", "-", "*", "/"].includes(value)) {
-      // Store the first number and operation
       if (displayStr) {
         num1 = parseFloat(displayStr);
         operation = value;
-        displayStr = ""; // Clear display string for the next number
+        miniDisplayEl.innerText = `${num1} ${operation}`; // Update mini-display
+        displayStr = "";
+      }
+    } else if (value === "%") {
+      if (displayStr) {
+        const percentValue = parseFloat(displayStr) / 100;
+        displayStr = percentValue.toString();
+        displayEl.innerText = displayStr;
       }
     } else {
-      // Append numbers or decimal point to the display string
       displayStr += value;
       displayEl.innerText = displayStr;
     }
   });
+});
+
+document.addEventListener("keydown", (event) => {
+  const keyMap = {
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    "+": "add",
+    "-": "subtract",
+    "*": "multiply",
+    "/": "divide",
+    "%": "percent",
+    ".": "decimal-point",
+    Enter: "equal",
+    "=": "equal",
+    Backspace: "clear",
+    Escape: "all-cut",
+  };
+
+  const buttonId = keyMap[event.key];
+  if (buttonId) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+      button.click(); // Simulate a button click
+    }
+  }
 });
