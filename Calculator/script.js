@@ -92,14 +92,27 @@ buttons.forEach((button) => {
         const result = operate(num1, operation, num2);
         miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`; // Update mini-display
         displayEl.innerText = result;
-        displayStr = "";
-        num1 = null;
+        displayStr = result.toString(); // Allow chaining operations
+        num1 = result; // Store result for next operation
         operation = null;
         num2 = null;
       }
     } else if (["+", "-", "*", "/"].includes(value)) {
-      if (displayStr) {
-        num1 = parseFloat(displayStr);
+      if (value === "-" && displayStr === "") {
+        // Allow entering negative numbers
+        displayStr = "-";
+        displayEl.innerText = displayStr;
+      } else {
+        if (num1 !== null && operation && displayStr) {
+          // Perform the previous operation before storing the new one
+          num2 = parseFloat(displayStr);
+          const result = operate(num1, operation, num2);
+          miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`; // Update mini-display
+          displayEl.innerText = result;
+          num1 = result; // Store result for next operation
+        } else if (displayStr) {
+          num1 = parseFloat(displayStr);
+        }
         operation = value;
         miniDisplayEl.innerText = `${num1} ${operation}`; // Update mini-display
         displayStr = "";
