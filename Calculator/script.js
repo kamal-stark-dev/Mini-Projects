@@ -66,11 +66,10 @@ function getVal(id) {
     case "all-cut":
       return "AC";
     default:
-      return ""; // Return empty string for invalid ids
+      return "";
   }
 }
 
-// button listeners
 const buttons = document.querySelectorAll("button");
 
 let displayStr = "";
@@ -126,6 +125,7 @@ buttons.forEach((button) => {
         displayEl.innerText = displayStr;
       }
     } else {
+      // if numbers
       displayStr += value;
       displayEl.innerText = displayStr;
     }
@@ -162,5 +162,21 @@ document.addEventListener("keydown", (event) => {
     if (button) {
       button.click(); // Simulate a button click
     }
+  }
+});
+
+// Info panel toggle
+const infoIcon = document.querySelector(".info-icon");
+const infoPanel = document.querySelector(".info-panel");
+
+infoIcon.addEventListener("click", () => {
+  const isVisible = infoPanel.style.display === "block";
+  infoPanel.style.display = isVisible ? "none" : "block";
+});
+
+// Close the info panel when clicking outside
+document.addEventListener("click", (event) => {
+  if (!infoIcon.contains(event.target) && !infoPanel.contains(event.target)) {
+    infoPanel.style.display = "none";
   }
 });
