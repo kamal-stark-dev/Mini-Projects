@@ -5,7 +5,6 @@ const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
-const power = (a, b) => a ** b;
 
 // will be used to update the display
 let num1, operation, num2;
@@ -71,8 +70,8 @@ function getVal(id) {
   }
 }
 
-// button listners
-buttons = document.querySelectorAll("button");
+// button listeners
+const buttons = document.querySelectorAll("button");
 
 let displayStr = "";
 buttons.forEach((button) => {
@@ -85,12 +84,15 @@ buttons.forEach((button) => {
       operation = null;
       num2 = null;
       displayEl.innerText = "0";
-      miniDisplayEl.innerText = ""; // Clear mini-display
+      miniDisplayEl.innerText = "";
+    } else if (value === "clear") {
+      displayStr = displayStr.slice(0, -1);
+      displayEl.innerText = displayStr || "0"; // Show "0" if displayStr is empty
     } else if (value === "=") {
       if (num1 !== null && operation && displayStr) {
         num2 = parseFloat(displayStr);
         const result = operate(num1, operation, num2);
-        miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`; // Update mini-display
+        miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`;
         displayEl.innerText = result;
         displayStr = result.toString(); // Allow chaining operations
         num1 = result; // Store result for next operation
@@ -107,14 +109,14 @@ buttons.forEach((button) => {
           // Perform the previous operation before storing the new one
           num2 = parseFloat(displayStr);
           const result = operate(num1, operation, num2);
-          miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`; // Update mini-display
+          miniDisplayEl.innerText = `${num1} ${operation} ${num2} =`;
           displayEl.innerText = result;
           num1 = result; // Store result for next operation
         } else if (displayStr) {
           num1 = parseFloat(displayStr);
         }
         operation = value;
-        miniDisplayEl.innerText = `${num1} ${operation}`; // Update mini-display
+        miniDisplayEl.innerText = `${num1} ${operation}`;
         displayStr = "";
       }
     } else if (value === "%") {

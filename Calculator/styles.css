@@ -2,68 +2,93 @@ body {
   margin: 0;
   display: flex;
   align-items: center;
-  height: 100vh;
   justify-content: center;
-  font-family: "Courier New", Courier, monospace;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  background-color: #f4f4f9;
 }
 
 .calculator {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   align-items: stretch;
-  background-color: aliceblue;
-  padding: 32px;
-  border: 2px solid;
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 320px;
+}
+
+.calculator .display {
+  height: 96px;
+  background-color: #222;
+  border-radius: 12px;
+  padding: 16px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+#mini-display {
+  font-size: 14px;
+  color: #bbbbbb;
+  text-align: right;
+}
+
+#display {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: right;
 }
 
 .calculator .row {
   display: flex;
-  align-items: center;
   gap: 12px;
 }
 
 .calculator button {
   cursor: pointer;
-  width: 64px;
-  aspect-ratio: 1 / 1;
-  padding: 6px 8px;
-  font-size: 24px;
-  border-radius: 12px;
-  border: 0.5px solid black;
-  transition: background 0.2s ease-in-out;
+  flex: 1;
+  height: 64px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .calculator button:hover {
-  background-color: #ddd;
+  background-color: #e0e0e0;
+}
+
+.calculator button:active {
+  transform: scale(0.95);
+}
+
+.calculator .operation {
+  background-color: #ff9500;
+  color: #ffffff;
+}
+
+.calculator .operation:hover {
+  background-color: #e08900;
+}
+
+.calculator .dim {
+  background-color: #d3d3d3;
+  color: #555555;
+}
+
+.calculator .dim:hover {
+  background-color: #c0c0c0;
 }
 
 .calculator .double-width {
-  width: 50%;
-  height: 64px;
-}
-
-.calculator .display {
-  margin-bottom: 12px;
-  height: 72px;
-  background-color: #222;
-  position: relative;
-  padding: 16px;
-  color: white;
-  overflow: hidden;
-}
-
-#mini-display {
-  position: absolute;
-  font-size: 18px;
-  right: 18px;
-  top: 28px;
-}
-
-#display {
-  position: absolute;
-  font-size: 32px;
-  font-weight: bold;
-  right: 18px;
-  bottom: 18px;
+  flex: none; /* Disable flex-grow for precise width control */
+  width: calc(50% - 6px); /* Take up half the row width minus half the gap */
 }
