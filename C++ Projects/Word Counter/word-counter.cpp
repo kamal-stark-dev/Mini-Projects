@@ -4,8 +4,16 @@
 #include <string> // getline()
 using namespace std;
 
-int main() {
-    ifstream myFile("test.txt");
+int main(int argc, char* argv[]) {
+
+    if (argc < 2) {
+        cerr << "Incorrect usage.\nUsage: ./a.exe" << " <filename.type>\n";
+        return 1;
+    }
+
+    string fileLocation = argv[1];
+
+    ifstream myFile(fileLocation);
     if (!myFile) {
         cerr << "Error: Could not open file.\n";
         return 1;
@@ -19,10 +27,13 @@ int main() {
         characters += buffer.length() + 1; // +1 for newline
 
         stringstream ss(buffer);
+        // stringstream acts like cin but instead of reading from keyboard it reads from a string in memory
         string word;
-        while (ss >> word) { // repeatedly extract each word
+        while (ss >> word) { // ss >> words (works same as `cin >> word` and keeps on reading word until space, tab or newline occurs).
             words++;
         }
+
+        // using stringstream makes grabbing words easier
     }
 
     myFile.close();
@@ -33,3 +44,5 @@ int main() {
 
     return 0;
 }
+
+// Compile and run this file: `g++ .\word-counter.cpp; ./a.exe test.txt`
