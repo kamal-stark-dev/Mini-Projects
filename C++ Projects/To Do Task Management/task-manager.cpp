@@ -4,23 +4,32 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <limits>
 using namespace std;
 
-#define TasksFile "tasks.txt"
-#define CompletedTasksFile "completed.txt"
+const string TasksFile = "tasks.txt";
+const string CompletedTasksFile = "completed.txt";
 
 // function declarations
 void addTask();
 void showTasks(bool showCompleted = true);
 void markComplete();
 void clearTasks();
+void printTasksFromFile(const string& filename, const string& header);
 
 int main(void) {
     // Menu Loop - Lets the user choose an action until they quit.
     int choice;
     do {
         cout << "\nTo Do List - Menu\n\t1. Add task.\t2. View tasks.\t3. Mark as complete.\t4. Clear tasks\t5. Exit.\n>> Select an operation: ";
-        cin >> choice;
+
+        // handling non-numeric invalid input
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please try a number.\n";
+            continue; // ask for input again
+        }
 
         switch (choice) {
             case 1:
@@ -62,47 +71,24 @@ void addTask() {
     myFile.close();
 }
 
-void showTasks(bool showCompleted) {
-    ifstream myFile(TasksFile);
-    if (!myFile) {
-        cerr << "Unable to open tasks file.\n";
-        return;
-    }
-
-    cout << "\nTo Do Tasks:\n";
-
+void printTasksFromFile(const string& filename, const string& header) {
+    ifstream file(filename);
+    cout << "\n" << header << "\n";
     string buffer;
     int i = 1;
-    // show to do tasks
-    while (getline(myFile, buffer)) {
-        cout << "    " << i << ". "  << buffer << "\n";
-        i++;
-    }
-    if (i == 1) { // task list is empty
+    while (getline(file, buffer))
+        cout << "    " << i++ << ". " << buffer << "\n";
+    if (i == 1)
         cout << "    ***** The task list is empty. *****\n";
-    }
-    myFile.close();
+    file.close();
+}
+
+void showTasks(bool showCompleted) {
+    printTasksFromFile(TasksFile, "To Do Tasks");
 
     if (!showCompleted) return;
 
-    cout << "\nCompleted Tasks:\n";
-
-    ifstream completedTasks(CompletedTasksFile);
-    if (!completedTasks) {
-        cerr << "Error in opening completed tasks file.\n";
-        return;
-    }
-
-    i = 1;
-    // show completed tasks
-    while (getline(completedTasks, buffer)) {
-        cout << "    " << i << ". " << buffer << "\n";
-        i++;
-    }
-    if (i == 1) {
-        cout << "    ***** The task list is empty. *****\n";
-    }
-    completedTasks.close();
+    printTasksFromFile(CompletedTasksFile, "To Do Tasks");
 }
 
 void markComplete() {
@@ -150,7 +136,7 @@ void markComplete() {
         cerr << "Error in removing task from tasks file.\n";
         return;
     }
-    for (string& line: lines) {
+    for (const string& line: lines) {
         outFile << line << "\n";
     }
     outFile.close();
@@ -164,10 +150,12 @@ void markComplete() {
 
     completedFile << completedTask << "\n";
     completedFile.close();
+
+    cout << "\nTask '" << completedTask << "' marked as completed!\n";
 }
 
 void clearTasks() {
-    ofstream tasks(TasksFile, ios::trunc); // trucates the file
+    ofstream tasks(TasksFile, ios::trunc); // truncates the file
     tasks.close();
 
     ofstream completedTasks(CompletedTasksFile, ios::trunc); // trucates the file
