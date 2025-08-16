@@ -13,12 +13,13 @@ using namespace std;
 void addTask();
 void showTasks(bool showCompleted = true);
 void markComplete();
+void clearTasks();
 
 int main(void) {
     // Menu Loop - Lets the user choose an action until they quit.
     int choice;
     do {
-        cout << "\nTo Do List - Menu\n\t1. Add task.\t2. View tasks.\t3. Mark as complete.\t4. Exit.\n>> Select an operation: ";
+        cout << "\nTo Do List - Menu\n\t1. Add task.\t2. View tasks.\t3. Mark as complete.\t4. Clear tasks\t5. Exit.\n>> Select an operation: ";
         cin >> choice;
 
         switch (choice) {
@@ -32,12 +33,15 @@ int main(void) {
                 markComplete();
                 break;
             case 4:
+                clearTasks();
+                break;
+            case 5:
                 cout << "\n***** ~ Ara Ara Sayonara ~ *****\n";
                 break;
             default:
                 cout << "\n***** Invalid Operation Selected. *****\n";
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
@@ -160,4 +164,14 @@ void markComplete() {
 
     completedFile << completedTask << "\n";
     completedFile.close();
+}
+
+void clearTasks() {
+    ofstream tasks(TasksFile, ios::trunc); // trucates the file
+    tasks.close();
+
+    ofstream completedTasks(CompletedTasksFile, ios::trunc); // trucates the file
+    completedTasks.close();
+
+    cout << "\n***** All tasks removed successfully. *****\n";
 }
