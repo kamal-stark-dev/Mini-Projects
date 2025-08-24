@@ -1,7 +1,5 @@
 var numSelected = null;
-
 var tileSelected = null;
-
 var errors = 0;
 
 var board = [
@@ -50,17 +48,21 @@ function setGame() {
       let tile = document.createElement("div");
       tile.id = i.toString() + "-" + j.toString();
       tile.classList.add("tile");
+      tile.addEventListener("click", selectTile);
+
+      // adding pre-filled cells
       if (board[i][j] != "-") {
         tile.classList.add("tile-start");
         tile.innerText = board[i][j];
       }
+
+      // adding box separators
       if (i == 2 || i == 5) {
         tile.classList.add("horizontal-line");
       }
       if (j == 2 || j == 5) {
         tile.classList.add("vertical-line");
       }
-      tile.addEventListener("click", selectTile);
 
       document.getElementById("board").append(tile);
     }
@@ -77,8 +79,6 @@ function selectNumber() {
 
 function selectTile() {
   if (numSelected && this.innerText == "") {
-    // this.innerText = numSelected.id;
-
     let coords = this.id.split("-"); // ["7", "4"]
     let r = parseInt(coords[0]);
     let c = parseInt(coords[1]);
@@ -88,6 +88,27 @@ function selectTile() {
     } else {
       errors++;
       document.getElementById("errors").innerText = errors;
+      checkErrors();
     }
+  }
+}
+
+function checkErrors() {
+  if (errors >= 3) {
+    let tiles = document.getElementsByClassName("tile");
+    for (let tile of tiles) {
+      tile.removeEventListener("click", selectTile);
+    }
+
+    let numbers = document.getElementsByClassName("number");
+    for (let number of numbers) {
+      number.removeEventListener("click", selectNumber);
+    }
+
+    // show game over message
+    let gameOverMsg = document.createElement("div");
+    gameOverMsg.innerText = "Game Over!!";
+    gameOverMsg.style.color = "red";
+    document.body.appendChild(gameOverMsg);
   }
 }
