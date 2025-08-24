@@ -14,6 +14,9 @@ var board = [
   "81--45---",
 ];
 
+var numberCounts = getNumberCounts(board);
+console.log(numberCounts);
+
 var solution = [
   "387491625",
   "241568379",
@@ -91,6 +94,18 @@ function selectTile() {
       checkErrors();
     }
   }
+}
+
+function getNumberCounts(board) {
+  let counts = new Array(10).fill(0);
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (board[i][j] !== "-") {
+        counts[board[i][j] - 1]++;
+      }
+    }
+  }
+  return counts;
 }
 
 function checkErrors() {
