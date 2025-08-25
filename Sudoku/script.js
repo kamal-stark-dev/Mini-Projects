@@ -83,17 +83,25 @@ function selectNumber(value, element) {
 }
 
 function selectTile(r, c, tile) {
-  if (!selectedNumber || tile.innerText !== "") return;
+  if (!selectedNumber) return; // must pick a number first
+  if (tile.classList.contains("tile-start")) return; // can't override original clues
+
+  // overwrite tile with the new number
+  tile.innerText = selectedNumber;
+  tile.classList.remove("wrong-tile"); // clear previous state
 
   if (solution[r][c] == selectedNumber) {
-    tile.innerText = selectedNumber;
-    numberCounts[selectedNumber - 1]++; // update count
-    renderCounts();
+    tile.classList.remove("wrong-tile");
   } else {
+    tile.classList.add("wrong-tile");
     errors++;
     document.getElementById("errors").innerText = errors;
     checkErrors();
   }
+
+  // recalc counts from current board after any change
+  numberCounts = getNumberCountsFromBoard();
+  renderCounts();
 }
 
 function getNumberCounts(board) {
@@ -107,10 +115,26 @@ function getNumberCounts(board) {
   return counts;
 }
 
+function getNumberCountsFromBoard() {
+  const counts = new Array(9).fill(0);
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const tile = document.getElementById(`${r}-${c}`);
+      const val = tile.innerText;
+      if (val >= "1" && val <= "9" && solution[r][c] === val) {
+        counts[val - 1]++;
+      }
+    }
+  }
+  return counts;
+}
+
 function renderCounts() {
   for (let i = 1; i <= 9; i++) {
     if (numberCounts[i - 1] >= 9) {
       digitElements[i].style.visibility = "hidden";
+    } else {
+      digitElements[i].style.visibility = "visible";
     }
   }
 }
