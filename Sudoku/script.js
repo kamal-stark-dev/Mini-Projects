@@ -1,8 +1,7 @@
-var numSelected = null;
-var tileSelected = null;
-var errors = 0;
+let selectedNumber = null;
+let errors = 0;
 
-var board = [
+const board = [
   "--74916-5",
   "2---6-3-9",
   "-----7-1-",
@@ -14,10 +13,7 @@ var board = [
   "81--45---",
 ];
 
-var numberCounts = getNumberCounts(board);
-console.log(numberCounts);
-
-var solution = [
+const solution = [
   "387491625",
   "241568379",
   "569327418",
@@ -29,101 +25,110 @@ var solution = [
   "812945763",
 ];
 
-window.onload = function () {
+// number usage counts (0-based: counts[0] = count of 1s, counts[8] = count of 9s)
+let numberCounts = getNumberCounts(board);
+
+// cache digit elements for efficiency
+let digitElements = {};
+
+window.onload = () => {
   setGame();
+  renderCounts(); // hide already-completed numbers if any
 };
 
 function setGame() {
   // digits 1 - 9
+  const digitsContainer = document.getElementById("digits");
   for (let i = 1; i <= 9; i++) {
-    let number = document.createElement("div");
-    number.id = i;
+    const number = document.createElement("div");
+    number.id = `digit-${i}`;
     number.innerText = i;
     number.classList.add("number");
-    number.addEventListener("click", selectNumber);
+    number.addEventListener("click", () => selectNumber(i, number));
 
-    document.getElementById("digits").appendChild(number);
+    digitElements[i] = number; // cache reference
+    digitsContainer.appendChild(number);
   }
 
   // board
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      let tile = document.createElement("div");
-      tile.id = i.toString() + "-" + j.toString();
+  const boardContainer = document.getElementById("board");
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const tile = document.createElement("div");
+      tile.id = `${r}-${c}`;
       tile.classList.add("tile");
-      tile.addEventListener("click", selectTile);
+      tile.addEventListener("click", () => selectTile(r, c, tile));
 
-      // adding pre-filled cells
-      if (board[i][j] != "-") {
+      // pre-filled cells
+      if (board[r][c] !== "-") {
         tile.classList.add("tile-start");
-        tile.innerText = board[i][j];
+        tile.innerText = board[r][c];
       }
 
-      // adding box separators
-      if (i == 2 || i == 5) {
-        tile.classList.add("horizontal-line");
-      }
-      if (j == 2 || j == 5) {
-        tile.classList.add("vertical-line");
-      }
+      // box separators
+      if (r === 2 || r === 5) tile.classList.add("horizontal-line");
+      if (c === 2 || c === 5) tile.classList.add("vertical-line");
 
-      document.getElementById("board").append(tile);
+      boardContainer.appendChild(tile);
     }
   }
 }
 
-function selectNumber() {
-  if (numSelected != null) {
-    numSelected.classList.remove("number-selected");
+function selectNumber(value, element) {
+  if (selectedNumber !== null) {
+    digitElements[selectedNumber].classList.remove("number-selected");
   }
-  numSelected = this;
-  numSelected.classList.add("number-selected");
+  selectedNumber = value;
+  element.classList.add("number-selected");
 }
 
-function selectTile() {
-  if (numSelected && this.innerText == "") {
-    let coords = this.id.split("-"); // ["7", "4"]
-    let r = parseInt(coords[0]);
-    let c = parseInt(coords[1]);
+function selectTile(r, c, tile) {
+  if (!selectedNumber || tile.innerText !== "") return;
 
-    if (solution[r][c] == numSelected.id) {
-      this.innerText = numSelected.id;
-    } else {
-      errors++;
-      document.getElementById("errors").innerText = errors;
-      checkErrors();
-    }
+  if (solution[r][c] == selectedNumber) {
+    tile.innerText = selectedNumber;
+    numberCounts[selectedNumber - 1]++; // update count
+    renderCounts();
+  } else {
+    errors++;
+    document.getElementById("errors").innerText = errors;
+    checkErrors();
   }
 }
 
 function getNumberCounts(board) {
-  let counts = new Array(10).fill(0);
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      if (board[i][j] !== "-") {
-        counts[board[i][j] - 1]++;
-      }
+  const counts = new Array(9).fill(0);
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const char = board[r][c];
+      if (char !== "-") counts[char - 1]++;
     }
   }
   return counts;
 }
 
-function checkErrors() {
-  if (errors >= 3) {
-    let tiles = document.getElementsByClassName("tile");
-    for (let tile of tiles) {
-      tile.removeEventListener("click", selectTile);
+function renderCounts() {
+  for (let i = 1; i <= 9; i++) {
+    if (numberCounts[i - 1] >= 9) {
+      digitElements[i].style.visibility = "hidden";
     }
-
-    let numbers = document.getElementsByClassName("number");
-    for (let number of numbers) {
-      number.removeEventListener("click", selectNumber);
-    }
-
-    // show game over message
-    let gameOverMsg = document.createElement("div");
-    gameOverMsg.innerText = "Game Over!!";
-    gameOverMsg.style.color = "red";
-    document.body.appendChild(gameOverMsg);
   }
+}
+
+function checkErrors() {
+  if (errors < 3) return;
+
+  // disable all input
+  document.querySelectorAll(".tile").forEach(
+    (tile) => tile.replaceWith(tile.cloneNode(true)) // removes all listeners
+  );
+  document
+    .querySelectorAll(".number")
+    .forEach((num) => num.replaceWith(num.cloneNode(true)));
+
+  // show game over message
+  const gameOverMsg = document.createElement("div");
+  gameOverMsg.innerText = "Game Over!!";
+  gameOverMsg.style.color = "red";
+  document.body.appendChild(gameOverMsg);
 }
