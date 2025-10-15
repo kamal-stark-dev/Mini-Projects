@@ -1,0 +1,46 @@
+body {
+  background-color: #222;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.digit {
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(4, 1fr);
+  gap: 0.125rem;
+  width: max-content;
+}
+
+.clock {
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+  background: oklch(20% 0 0);
+  border: 0.25rem solid oklch(30% 0 0);
+}
+
+.hand {
+  height: 0.1875rem;
+  background-color: oklch(0.9475 0.1916 119.15);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: 0% -50%;
+  width: 50%;
+  transform-origin: center left;
+  /* transition: rotate 250ms; */
+}
+
+.hand:nth-child(1) {
+  rotate: 270deg;
+}
+
+.hand:nth-child(2) {
+  rotate: 0deg;
+}
