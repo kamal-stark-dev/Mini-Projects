@@ -38,9 +38,9 @@ body {
 }
 
 .hand:nth-child(1) {
-  rotate: 270deg;
+  rotate: 135deg;
 }
 
 .hand:nth-child(2) {
-  rotate: 0deg;
+  rotate: 135deg;
 }
