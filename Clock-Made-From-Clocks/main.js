@@ -1,5 +1,4 @@
-const digit = document.querySelector(".digit");
-const clock = digit.querySelector(".clock");
+const digits = document.querySelectorAll(".digit");
 
 const angles = {
   tr: [0, 270],
@@ -283,7 +282,7 @@ const digitMap = {
   ],
 };
 
-function createDigit() {
+function createDigit(digit, clock) {
   for (let i = 0; i < 23; i++) {
     const clone = clock.cloneNode(true); // true -> deep clone (include hands)
     digit.appendChild(clone);
@@ -304,5 +303,23 @@ function updateDigit(digit, num) {
   });
 }
 
-createDigit();
-updateDigit(digit, "9");
+digits.forEach((digit) => {
+  const clock = digit.querySelector(".clock");
+  createDigit(digit, clock);
+});
+
+setInterval(() => {
+  const time = new Date()
+    .toLocaleTimeString("en-US", {
+      hour12: true,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+    .replace(/\D/g, "")
+    .split("");
+
+  digits.forEach((digit, i) => {
+    updateDigit(digit, time[i]);
+  });
+}, 1000);

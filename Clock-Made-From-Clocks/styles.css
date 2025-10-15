@@ -4,9 +4,17 @@ body {
 
 .container {
   display: flex;
+  gap: 1.5rem;
+  height: 95vh;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+}
+
+.hour,
+.minute,
+.second {
+  /* border: 2px solid yellow; */
+  display: flex;
 }
 
 .digit {
@@ -18,10 +26,11 @@ body {
 
 .clock {
   position: relative;
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   background: oklch(20% 0 0);
-  border: 0.25rem solid oklch(30% 0 0);
+  border: 0.2rem solid oklch(30% 0 0);
+  border-radius: 25%;
 }
 
 .hand {
