@@ -1,11 +1,24 @@
+:root {
+  --background-color: #0b5351;
+  --cell-background-color: #092327;
+  --cell-border-color: #092327;
+  --hand-color: #daf0ee;
+
+  --cell-size: 2.5rem;
+  --cell-border-size: max(calc(var(--cell-size) / 16), 1.5px);
+  --cell-border-radius: 50%;
+  --field-gap: 3rem;
+}
+
 body {
-  background-color: #222;
+  background-color: var(--background-color);
+  overflow: hidden;
 }
 
 .container {
   display: flex;
-  gap: 1.5rem;
-  height: 95vh;
+  gap: var(--field-gap);
+  height: 100vh;
   align-items: center;
   justify-content: center;
 }
@@ -15,6 +28,7 @@ body {
 .second {
   /* border: 2px solid yellow; */
   display: flex;
+  gap: 0.6rem;
 }
 
 .digit {
@@ -26,30 +40,37 @@ body {
 
 .clock {
   position: relative;
-  height: 2rem;
-  width: 2rem;
-  background: oklch(20% 0 0);
-  border: 0.2rem solid oklch(30% 0 0);
-  border-radius: 25%;
+  height: var(--cell-size);
+  width: var(--cell-size);
+  background: var(--cell-background-color);
+  border: 0.2rem solid var(--cell-border-color);
+  border-radius: var(--cell-border-radius);
+
+  opacity: 0;
+  transform: scale(0.8);
+  animation: appear 1.5s ease forwards;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    rotate: 0deg;
+    transform: scale(1);
+  }
 }
 
 .hand {
   height: 0.1875rem;
-  background-color: oklch(0.9475 0.1916 119.15);
+  background-color: var(--hand-color);
 
   position: absolute;
   top: 50%;
   left: 50%;
   translate: 0% -50%;
   width: 50%;
+  rotate: 135deg;
   transform-origin: center left;
-  /* transition: rotate 250ms; */
-}
 
-.hand:nth-child(1) {
-  rotate: 135deg;
-}
-
-.hand:nth-child(2) {
-  rotate: 135deg;
+  transition: rotate 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  will-change: rotate;
 }
