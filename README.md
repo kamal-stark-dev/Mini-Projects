@@ -1,12 +1,17 @@
 # Mini-Projects
 
+![Demo](./Etch-a-Sketch/demo.png)
+
 1. Calender - [Mini-Calendar](https://kamal-stark-dev.github.io/Mini-Projects/Calendar/index.html)
 2. Color Pallet Generator - [Generator](https://kamal-stark-dev.github.io/Mini-Projects/Color-Pallet-Generator/index.html)
 3. Rotating Image Gallery (_One Piece_) - [Image Gallery](https://kamal-stark-dev.github.io/Mini-Projects/Rotating-Image-Gallery/index.html)
 4. Etch-a-Sketch - [Start Sketching](https://kamal-stark-dev.github.io/Mini-Projects/Etch-a-Sketch/index.html)
 5. Calculator - [Calculate](https://kamal-stark-dev.github.io/Mini-Projects/Calculator/index.html)
 
-![Demo](./Etch-a-Sketch/demo.png)
+![Demo](./Clock-Made-From-Clocks/demo.png)
+  
+6. Clock Made From Clocks - [Check out Clock](https://kamal-stark-dev.github.io/Mini-Projects/Clock-Made-From-Clocks/index.html)
+
 
 # Beginner
 
