@@ -1,5 +1,8 @@
 const digits = document.querySelectorAll(".digit");
 
+const tickSound = new Audio("assets/clock-tik.mp3");
+tickSound.volume = 0.5;
+
 const angles = {
   tr: [0, 270],
   rd: [0, 90],
@@ -322,4 +325,6 @@ setInterval(() => {
   digits.forEach((digit, i) => {
     updateDigit(digit, time[i]);
   });
+
+  tickSound.play();
 }, 1000);
