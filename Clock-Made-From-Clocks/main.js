@@ -1,4 +1,5 @@
 const digits = document.querySelectorAll(".digit");
+const separators = document.querySelectorAll(".separator");
 
 const tickSound = new Audio("assets/clock-tik.mp3");
 tickSound.volume = 0.5;
@@ -334,6 +335,10 @@ setInterval(() => {
 
   digits.forEach((digit, i) => {
     updateDigit(digit, time[i]);
+  });
+
+  separators.forEach((separator) => {
+    separator.classList.toggle("flash");
   });
 
   tickSound.play();
