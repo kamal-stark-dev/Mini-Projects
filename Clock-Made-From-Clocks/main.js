@@ -303,6 +303,16 @@ function updateDigit(digit, num) {
     const [hand1, hand2] = clock.querySelectorAll(".hand");
     hand1.style.rotate = `${angle1}deg`;
     hand2.style.rotate = `${angle2}deg`;
+
+    if (symbol.trim() !== "") {
+      // 1. ACTIVE/FILLED Cell: Full color, full opacity
+      clock.classList.add("filled");
+      clock.classList.remove("dim"); // Remove dim in case it was previously inactive
+    } else {
+      // 2. INACTIVE/EMPTY Cell: Default background, 0.5 opacity (dim)
+      clock.classList.remove("filled");
+      clock.classList.add("dim");
+    }
   });
 }
 
