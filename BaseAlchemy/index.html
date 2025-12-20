@@ -7,6 +7,35 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <nav>
+      <!-- TODO: -->
+    </nav>
+
+    <main>
+      <div class="container">
+        <h2>Base Convertor</h2>
+
+        <div class="input">
+          <input id="numberInput" type="text" placeholder="Enter number" />
+
+          <select id="baseSelect">
+            <option value="binary">Binary</option>
+            <option value="octal">Octal</option>
+            <option value="decimal">Decimal</option>
+            <option value="hexadecimal">Hexadecimal</option>
+          </select>
+
+          <button onclick="handleConvert()">Convert</button>
+        </div>
+
+        <pre id="output"></pre>
+      </div>
+    </main>
+
+    <footer>
+      <!-- TODO: -->
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>

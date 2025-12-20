@@ -18,6 +18,10 @@
   --font-main: Helvetica, Arial, sans-serif;
   --font-size-base: 1rem;
   --heading-color: #333;
+
+  /* Heights */
+  --nav-height: 8vh;
+  --footer-height: 8vh;
 }
 
 img,
@@ -62,4 +66,57 @@ a:hover,
 a:focus {
   text-decoration: underline;
   color: var(--accent-color);
+}
+
+/* Main Styles */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  background-color: lightblue;
+  height: var(--nav-height);
+}
+
+main {
+  background-color: pink;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  background-color: lightgreen;
+  height: var(--footer-height);
+}
+
+.container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto; /* center container */
+  height: 100%;
+  padding: 2rem;
+  background-color: lightskyblue;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input {
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Small Screens */
+@media (max-width: 600px) {
+  .boxes {
+    grid-template-columns: 1fr;
+  }
 }
