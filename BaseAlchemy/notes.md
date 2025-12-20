@@ -1,6 +1,6 @@
 # Base Alchemy
 
-Features -
+### Features
 
 1. Signed vs Unsigned Toggle (2's Complement): `11111111` is `-1` in signed and `255` in unsigned format.
 2. Step by Step conversion breakdown:
@@ -20,7 +20,7 @@ Features -
    Rotate bits
    Shift left /Documents and SettingsLive preview in all bases.
 
-- Suddenly it’s a bit lab, not a converter.
+> Suddenly it’s a bit lab, not a converter.
 
 6. Sharable links: tool’s entire state (number, base, options) is encoded into the URL.
 
@@ -31,7 +31,9 @@ Features -
 ```
 
 If URL has invalid data: `?bin=102101`
-Show: “Invalid binary digit at position 3”
-No silent failures.
+
+Show: “Invalid binary digit at position 3”, No silent failures.
 
 Advanced: `?value=FF&base=16&bits=32&signed=true&theme=dark`
+
+> NOTE: It's going to be vanilla JS project, NO react bs. (when it's not needed)

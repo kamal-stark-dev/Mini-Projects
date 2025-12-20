@@ -1,0 +1,65 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* margin, border and padding are considered into width (unlike content-box) */
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colors */
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --text-color: #212529;
+  --background-color: #ffffff;
+  --accent-color: #28a745;
+
+  /* Typography */
+  --font-main: Helvetica, Arial, sans-serif;
+  --font-size-base: 1rem;
+  --heading-color: #333;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%; /* Ensures images are responsive by default */
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body {
+  line-height: 1.5; /* Improves readability */
+  -webkit-font-smoothing: antialiased; /* Better font rendering on macOS/iOS */
+
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+  color: var(--accent-color);
+}
