@@ -127,6 +127,10 @@ footer {
 #output span {
   padding: 0.2rem 1rem;
   border: 2px solid black;
+
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  white-space: normal;
 }
 
 #output span.copyable:hover {
@@ -135,6 +139,9 @@ footer {
 
 /* Small Screens */
 @media (max-width: 600px) {
+  .input {
+    flex-wrap: wrap;
+  }
   .boxes {
     grid-template-columns: 1fr;
   }

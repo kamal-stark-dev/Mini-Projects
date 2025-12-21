@@ -103,7 +103,8 @@ function handleConvert() {
 
     // equation part
     const equation = document.createElement("div");
-    const htmlEquation = `<strong>Equation: </strong><span>(${result["binary"]})<sub>2</sub> = (${result["octal"]})<sub>8</sub> = (${result["decimal"]})<sub>10</sub> = (${result["hexadecimal"]})<sub>16</sub></span>`;
+    const htmlEquation = `<strong>Equation: </strong>
+    <span>(${result["binary"]})<sub>2</sub> = (${result["octal"]})<sub>8</sub> = (${result["decimal"]})<sub>10</sub> = (${result["hexadecimal"]})<sub>16</sub></span>`;
     equation.innerHTML = htmlEquation;
     output.appendChild(equation);
   } catch (err) {
