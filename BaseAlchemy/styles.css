@@ -129,7 +129,7 @@ footer {
   border: 2px solid black;
 }
 
-#output span:hover {
+#output span.copyable:hover {
   text-decoration: underline;
 }
 

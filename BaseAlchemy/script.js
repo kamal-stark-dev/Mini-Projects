@@ -56,7 +56,7 @@ function addPrefix(value, base, programmingMode) {
 }
 
 function handleConvert() {
-  const input = document.getElementById("numberInput").value.trim();
+  const input = document.getElementById("numberInput").value.trim() || "0";
   const base = document.getElementById("baseSelect").value;
   const output = document.getElementById("output");
   const programmingMode = document.getElementById("programmingMode").checked;
@@ -79,6 +79,7 @@ function handleConvert() {
 
       const baseValue = document.createElement("span");
       baseValue.textContent = value;
+      baseValue.classList.add("copyable");
       baseValue.style.cursor = "pointer";
       baseValue.title = "Click to copy";
 
@@ -99,11 +100,18 @@ function handleConvert() {
       row.appendChild(baseValue);
       output.appendChild(row);
     });
+
+    // equation part
+    const equation = document.createElement("div");
+    const htmlEquation = `<strong>Equation: </strong><span>(${result["binary"]})<sub>2</sub> = (${result["octal"]})<sub>8</sub> = (${result["decimal"]})<sub>10</sub> = (${result["hexadecimal"]})<sub>16</sub></span>`;
+    equation.innerHTML = htmlEquation;
+    output.appendChild(equation);
   } catch (err) {
     output.textContent = err.message;
   }
 }
 
+// the output changes live when `programmingMode` is toggled
 document
   .getElementById("programmingMode")
   .addEventListener("change", handleConvert);
