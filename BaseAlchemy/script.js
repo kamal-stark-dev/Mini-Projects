@@ -40,17 +40,33 @@ function convert(input, base) {
   return fromDecimal(decimalValue);
 }
 
+function addPrefix(value, base, programmingMode) {
+  if (!programmingMode) return value;
+
+  switch (base) {
+    case "binary":
+      return "0b" + value;
+    case "octal":
+      return "0o" + value;
+    case "hexadecimal":
+      return "0x" + value;
+    default:
+      return value; // decimal stays naked
+  }
+}
+
 function handleConvert() {
   const input = document.getElementById("numberInput").value.trim();
   const base = document.getElementById("baseSelect").value;
   const output = document.getElementById("output");
+  const programmingMode = document.getElementById("programmingMode").checked;
 
   output.innerHTML = "";
 
   try {
     const result = convert(input, base);
 
-    Object.entries(result).forEach(([label, value]) => {
+    Object.entries(result).forEach(([label, rawValue]) => {
       const row = document.createElement("div");
       row.style.display = "flex";
       row.style.gap = "8px";
@@ -58,6 +74,8 @@ function handleConvert() {
 
       const baseLabel = document.createElement("strong");
       baseLabel.textContent = label + ":";
+
+      const value = addPrefix(rawValue, label, programmingMode);
 
       const baseValue = document.createElement("span");
       baseValue.textContent = value;
@@ -85,3 +103,7 @@ function handleConvert() {
     output.textContent = err.message;
   }
 }
+
+document
+  .getElementById("programmingMode")
+  .addEventListener("change", handleConvert);

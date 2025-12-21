@@ -109,9 +109,15 @@ footer {
 }
 
 .input {
-  max-width: 400px;
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
+}
+
+.input label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
 #output strong {
