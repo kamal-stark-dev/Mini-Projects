@@ -114,6 +114,19 @@ footer {
   justify-content: space-between;
 }
 
+#output strong {
+  text-transform: capitalize;
+}
+
+#output span {
+  padding: 0.2rem 1rem;
+  border: 2px solid black;
+}
+
+#output span:hover {
+  text-decoration: underline;
+}
+
 /* Small Screens */
 @media (max-width: 600px) {
   .boxes {

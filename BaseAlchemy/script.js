@@ -23,7 +23,7 @@ function toDecimal(input, base) {
     throw new Error(`Invalid ${base} number`);
   }
 
-  return parseInt(input, bases[base]);
+  return parseInt(input, bases[base]); // parseInt('0101', 2); -> 5
 }
 
 function fromDecimal(decimalValue) {
@@ -45,9 +45,42 @@ function handleConvert() {
   const base = document.getElementById("baseSelect").value;
   const output = document.getElementById("output");
 
+  output.innerHTML = "";
+
   try {
     const result = convert(input, base);
-    output.textContent = JSON.stringify(result, null, 2);
+
+    Object.entries(result).forEach(([label, value]) => {
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.gap = "8px";
+      row.style.marginBottom = "6px";
+
+      const baseLabel = document.createElement("strong");
+      baseLabel.textContent = label + ":";
+
+      const baseValue = document.createElement("span");
+      baseValue.textContent = value;
+      baseValue.style.cursor = "pointer";
+      baseValue.title = "Click to copy";
+
+      baseValue.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(value);
+
+        const originalText = baseValue.textContent;
+        baseValue.textContent = "Copied!";
+        baseValue.style.color = "green";
+
+        setTimeout(() => {
+          baseValue.textContent = originalText;
+          baseValue.style.color = "";
+        }, 800);
+      });
+
+      row.appendChild(baseLabel);
+      row.appendChild(baseValue);
+      output.appendChild(row);
+    });
   } catch (err) {
     output.textContent = err.message;
   }
