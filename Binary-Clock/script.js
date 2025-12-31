@@ -22,7 +22,7 @@ function updateTime() {
   for (let i = 0; i < blocks.length; i++) {
     const values = blocks[i].getElementsByClassName("bit_val");
     for (let j = 0; j < 4; j++) {
-      values[j].innerText = binary_vals[i][j];
+      //   values[j].innerText = binary_vals[i][j];
       values[j].classList.toggle("on", binary_vals[i][j] == "1");
     }
   }
