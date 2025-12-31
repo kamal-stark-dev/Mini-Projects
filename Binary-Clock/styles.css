@@ -19,7 +19,7 @@
 body {
   height: 100vh;
   background-color: var(--background-color);
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
 
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@ body {
 .group {
   display: flex;
   gap: 12px;
-  margin: 0 12px;
+  margin: 0 16px;
 }
 
 .column {
@@ -64,7 +64,7 @@ body {
 .block {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
 }
 
 .bit_val {
@@ -88,6 +88,20 @@ body {
 .bit_val.on {
   background-color: var(--highlight);
   box-shadow: 0px 6px 16px 8px rgba(255, 136, 0, 0.07);
+}
+
+/* =========================
+   SEPARATER
+   ========================= */
+.separator {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 0 16px;
+
+  color: var(--label-color);
+
+  user-select: none;
+  cursor: default;
 }
 
 /* =========================
