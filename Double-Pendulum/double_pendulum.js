@@ -24,7 +24,6 @@ function drawLine(
   ctx.moveTo(startX, startY);
   ctx.lineTo(endX, endY);
 
-  ctx.closePath();
   ctx.stroke();
 }
 
@@ -51,36 +50,125 @@ function drawText(
   ctx.fillText(text, startX, startY);
 }
 
+function getRandom(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 // constants
 const DEG2RAD = Math.PI / 180;
 
 // drawing pendulum
 function drawPendulum(startX, startY, angle, length) {
-  end = calcEndPoints(startX, startY, angle, length);
+  const { x: endX, y: endY } = calcEndPoints(startX, startY, angle, length);
 
-  drawLine(startX, startY, end.x, end.y, "white", 2);
-  drawCircle(end.x, end.y, 25);
+  drawLine(startX, startY, endX, endY, "white", 2);
+  drawCircle(endX, endY, 25);
 }
 
 function calcEndPoints(startX, startY, angle, length) {
-  const endX = startX + length * Math.cos(angle);
-  const endY = startY + length * Math.sin(angle);
+  const endX = startX + length * Math.sin(angle);
+  const endY = startY + length * Math.cos(angle);
   return { x: endX, y: endY };
 }
 
 function drawDoublePendulum(startX, startY, angle1, length1, angle2, length2) {
-  end = calcEndPoints(startX, startY, angle1, length1);
-  drawPendulum(end.x, end.y, angle2, length2);
+  const { x: endX, y: endY } = calcEndPoints(startX, startY, angle1, length1);
+  drawPendulum(endX, endY, angle2, length2);
 
   // drawing first one later so that it comes on top of second one
   drawPendulum(startX, startY, angle1, length1);
 }
 
-function draw() {
-  //   drawPendulum(canvas.width / 2, 0, 60 * DEG2RAD, 200);
+const l1 = 200,
+  l2 = 150,
+  m1 = 1,
+  m2 = 1;
 
-  drawDoublePendulum(canvas.width / 2, 0, 60 * DEG2RAD, 200, 30 * DEG2RAD, 150);
+let angle1 = getRandom(-90, 90) * DEG2RAD;
+let angle2 = getRandom(0, 360) * DEG2RAD;
+
+let angle1_d = 0,
+  angle2_d = 0;
+
+// const G = 9.8;
+const G = 0.2;
+
+function updateAngles() {
+  // angular acceleration
+  let angle1_dd =
+    (-G * (2 * m1 + m2) * Math.sin(angle1) -
+      m2 * G * Math.sin(angle1 - 2 * angle2) -
+      2 *
+        Math.sin(angle1 - angle2) *
+        m2 *
+        (angle2_d ** 2 * l2 + angle1_d ** 2 * l1 * Math.cos(angle1 - angle2))) /
+    (l1 * (2 * m1 + m2 - m2 * Math.cos(2 * angle1 - 2 * angle2)));
+
+  let angle2_dd =
+    (2 *
+      Math.sin(angle1 - angle2) *
+      (angle1_d ** 2 * l1 * (m1 + m2) +
+        G * (m1 + m2) * Math.cos(angle1) +
+        angle2_d ** 2 * l2 * m2 * Math.cos(angle1 - angle2))) /
+    (l2 * (2 * m1 + m2 - m2 * Math.cos(2 * angle1 - 2 * angle2)));
+
+  // angular velocity
+  angle1_d += angle1_dd;
+  angle2_d += angle2_dd;
+
+  // new angles
+  angle1 += angle1_d;
+  angle2 += angle2_d;
+
+  // Dampen velocity slightly over time to simulate air friction and prevent chaotic explosions
+  // angle1_d *= 0.999;
+  // angle2_d *= 0.999;
 }
+
+// 1. Define your target FPS and timing variables
+const TARGET_FPS = 60;
+const FRAME_INTERVAL = 1000 / TARGET_FPS; // Milliseconds per frame (~16.66ms)
+let lastTime = 0;
+let accumulator = 0;
+
+function draw(timestamp = 0) {
+  // 2. Calculate time passed since the last browser frame
+  let elapsed = timestamp - lastTime;
+  lastTime = timestamp;
+
+  // Prevent giant time leaps if the user switches browser tabs
+  if (elapsed > 1000) elapsed = FRAME_INTERVAL;
+
+  // Track accumulated time
+  accumulator += elapsed;
+
+  // 3. Only update angles when enough time has accumulated
+  while (accumulator >= FRAME_INTERVAL) {
+    updateAngles();
+    accumulator -= FRAME_INTERVAL; // Decrease accumulator by one fixed frame step
+  }
+
+  // 4. Render every frame for smooth visuals
+  clearRect();
+  drawDoublePendulum(canvas.width / 2, 0, angle1, l1, angle2, l2);
+
+  // 5. Loop
+  requestAnimationFrame(draw);
+}
+
+// Start the loop (pass the initial 0 timestamp)
+requestAnimationFrame(draw);
+
+// function draw(timestamp) {
+//   // drawPendulum(canvas.width / 2, 0, 60 * DEG2RAD, 200);
+//   // drawDoublePendulum(canvas.width / 2, 0, 60 * DEG2RAD, 200, 30 * DEG2RAD, 150);
+
+//   updateAngles();
+//   clearRect();
+//   drawDoublePendulum(canvas.width / 2, 0, angle1, l1, angle2, l2);
+//   requestAnimationFrame(draw);
+// }
+// requestAnimationFrame(draw);
 
 // resize canvas
 function resizeCanvas() {
