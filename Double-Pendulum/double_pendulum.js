@@ -54,6 +54,10 @@ function getRandom(min, max) {
   return Math.random() * (max - min) + min;
 }
 
+function getRandomAngle(min, max) {
+  return getRandom(min, max) * DEG2RAD;
+}
+
 // constants
 const DEG2RAD = Math.PI / 180;
 
@@ -79,16 +83,21 @@ function drawDoublePendulum(startX, startY, angle1, length1, angle2, length2) {
   drawPendulum(startX, startY, angle1, length1);
 }
 
-const l1 = 200,
-  l2 = 150,
-  m1 = 1,
-  m2 = 1;
+let l1, l2, m1, m2, angle1, angle2, angle1_d, angle2_d;
 
-let angle1 = getRandom(-90, 90) * DEG2RAD;
-let angle2 = getRandom(0, 360) * DEG2RAD;
+function init_vars(length1 = 200, length2 = 150, mass1 = 1, mass2 = 1) {
+  l1 = length1;
+  l2 = length2;
 
-let angle1_d = 0,
+  m1 = mass1;
+  m2 = mass2;
+
+  angle1 = getRandomAngle(-90, 90);
+  angle2 = getRandomAngle(0, 360);
+
+  angle1_d = 0;
   angle2_d = 0;
+}
 
 // const G = 9.8;
 const G = 0.2;
@@ -136,9 +145,6 @@ function draw(timestamp = 0) {
   let elapsed = timestamp - lastTime;
   lastTime = timestamp;
 
-  // Prevent giant time leaps if the user switches browser tabs
-  if (elapsed > 1000) elapsed = FRAME_INTERVAL;
-
   // Track accumulated time
   accumulator += elapsed;
 
@@ -156,19 +162,9 @@ function draw(timestamp = 0) {
   requestAnimationFrame(draw);
 }
 
-// Start the loop (pass the initial 0 timestamp)
+// Start the loop
+init_vars();
 requestAnimationFrame(draw);
-
-// function draw(timestamp) {
-//   // drawPendulum(canvas.width / 2, 0, 60 * DEG2RAD, 200);
-//   // drawDoublePendulum(canvas.width / 2, 0, 60 * DEG2RAD, 200, 30 * DEG2RAD, 150);
-
-//   updateAngles();
-//   clearRect();
-//   drawDoublePendulum(canvas.width / 2, 0, angle1, l1, angle2, l2);
-//   requestAnimationFrame(draw);
-// }
-// requestAnimationFrame(draw);
 
 // resize canvas
 function resizeCanvas() {
@@ -178,3 +174,11 @@ function resizeCanvas() {
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas(); // Initial call
+
+// restart on SPACE
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    init_vars();
+    draw();
+  }
+});
