@@ -13,7 +13,85 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <main>
+      <canvas id="canvas"></canvas>
+
+      <div class="customize">
+        <!-- Length 1 -->
+        <label for="length_1">
+          <div>
+            Length 1:
+            <span id="length_1_value">200</span>
+          </div>
+
+          <input id="length_1" type="range" min="50" max="400" value="200" />
+        </label>
+
+        <!-- Length 2 -->
+        <label for="length_2">
+          <div>
+            Length 2:
+            <span id="length_2_value">150</span>
+          </div>
+
+          <input id="length_2" type="range" min="50" max="400" value="150" />
+        </label>
+
+        <!-- Mass 1 -->
+        <label for="mass_1">
+          <div>
+            Mass 1:
+            <span id="mass_1_value">1</span>
+          </div>
+
+          <input
+            id="mass_1"
+            type="range"
+            min="1"
+            max="20"
+            step="0.1"
+            value="1"
+          />
+        </label>
+
+        <!-- Mass 2 -->
+        <label for="mass_2">
+          <div>
+            Mass 2:
+            <span id="mass_2_value">1</span>
+          </div>
+
+          <input
+            id="mass_2"
+            type="range"
+            min="1"
+            max="20"
+            step="0.1"
+            value="1"
+          />
+        </label>
+
+        <!-- Angle 1 -->
+        <label for="angle_1">
+          <div>
+            Angle 1:
+            <span id="angle_1_value">45</span>
+          </div>
+
+          <input id="angle_1" type="range" min="-180" max="180" value="45" />
+        </label>
+
+        <!-- Angle 2 -->
+        <label for="angle_2">
+          <div>
+            Angle 2:
+            <span id="angle_2_value">90</span>
+          </div>
+
+          <input id="angle_2" type="range" min="-180" max="180" value="90" />
+        </label>
+      </div>
+    </main>
 
     <!-- SCRIPTS -->
     <script src="./script.js"></script>

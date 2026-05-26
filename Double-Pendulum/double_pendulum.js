@@ -88,7 +88,7 @@ function drawTrail(xPos, yPos) {
   const curr_length = trace_queue.length;
 
   for (let i = 0; i < curr_length; i++) {
-    const opacity = i / curr_length;
+    const opacity = (i / curr_length) ** 2;
     const color = `rgba(237, 37, 78, ${opacity})`;
 
     drawCircle(trace_queue[i].xPos, trace_queue[i].yPos, 2, color);
@@ -96,39 +96,45 @@ function drawTrail(xPos, yPos) {
 }
 
 function drawDoublePendulum(startX, startY, angle1, length1, angle2, length2) {
-  const { x: endX, y: endY } = calcEndPoints(startX, startY, angle1, length1);
-  drawPendulum(endX, endY, angle2, length2);
+  // first bob
+  const { x: x1, y: y1 } = calcEndPoints(startX, startY, angle1, length1);
 
-  // drawing first one later so that it comes on top of second one
-  drawPendulum(startX, startY, angle1, length1);
+  // second bob
+  const { x: x2, y: y2 } = calcEndPoints(x1, y1, angle2, length2);
 
-  const { x: end2X, y: end2Y } = calcEndPoints(endX, endY, angle2, length2);
-  drawTrail(end2X, end2Y);
+  // rods
+  drawLine(startX, startY, x1, y1, "white", 2);
+  drawLine(x1, y1, x2, y2, "white", 2);
+
+  // masses
+  drawCircle(x1, y1, 20);
+  drawCircle(x2, y2, 20);
+
+  drawTrail(x2, y2);
 }
 
 let l1, l2, m1, m2, angle1, angle2, angle1_d, angle2_d;
 
-function init_vars(length1 = 200, length2 = 150, mass1 = 1, mass2 = 1) {
-  l1 = length1;
-  l2 = length2;
+// function init_vars(length1 = 200, length2 = 150, mass1 = 1, mass2 = 1) {
+//   l1 = length1;
+//   l2 = length2;
 
-  m1 = mass1;
-  m2 = mass2;
+//   m1 = mass1;
+//   m2 = mass2;
 
-  angle1 = getRandomAngle(-90, 90);
-  angle2 = getRandomAngle(0, 360);
+//   angle1 = getRandomAngle(-90, 90);
+//   angle2 = getRandomAngle(0, 360);
 
-  angle1_d = 0;
-  angle2_d = 0;
+//   angle1_d = 0;
+//   angle2_d = 0;
 
-  // resetting trace
-  trace_queue = [];
-}
+//   // resetting trace
+//   trace_queue = [];
+// }
 
-// const G = 9.8;
-const G = 0.2;
+const G = 9.8;
 
-function updateAngles() {
+function updateAngles(dt) {
   // angular acceleration
   let angle1_dd =
     (-G * (2 * m1 + m2) * Math.sin(angle1) -
@@ -148,16 +154,17 @@ function updateAngles() {
     (l2 * (2 * m1 + m2 - m2 * Math.cos(2 * angle1 - 2 * angle2)));
 
   // angular velocity
-  angle1_d += angle1_dd;
-  angle2_d += angle2_dd;
+  angle1_d += angle1_dd * dt;
+  angle2_d += angle2_dd * dt;
 
   // new angles
-  angle1 += angle1_d;
-  angle2 += angle2_d;
+  angle1 += angle1_d * dt;
+  angle2 += angle2_d * dt;
 
   // Dampen velocity slightly over time to simulate air friction and prevent chaotic explosions
-  // angle1_d *= 0.999;
-  // angle2_d *= 0.999;
+  const damping = 0.9995;
+  // angle1_d *= damping;
+  // angle2_d *= damping;
 }
 
 // 1. Define your target FPS and timing variables
@@ -168,16 +175,18 @@ let accumulator = 0;
 
 function draw(timestamp = 0) {
   // 2. Calculate time passed since the last browser frame
-  let elapsed = timestamp - lastTime;
+  let elapsed = (timestamp - lastTime) / 1000;
   lastTime = timestamp;
 
   // Track accumulated time
   accumulator += elapsed;
 
+  const speed = 7;
+
   // 3. Only update angles when enough time has accumulated
-  while (accumulator >= FRAME_INTERVAL) {
-    updateAngles();
-    accumulator -= FRAME_INTERVAL; // Decrease accumulator by one fixed frame step
+  while (accumulator >= 1 / TARGET_FPS) {
+    updateAngles((1 / TARGET_FPS) * speed);
+    accumulator -= 1 / TARGET_FPS; // Decrease accumulator by one fixed frame step
   }
 
   // 4. Render every frame for smooth visuals
@@ -187,10 +196,6 @@ function draw(timestamp = 0) {
   // 5. Loop
   requestAnimationFrame(draw);
 }
-
-// Start the loop
-init_vars();
-requestAnimationFrame(draw);
 
 // resize canvas
 function resizeCanvas() {
@@ -203,6 +208,69 @@ resizeCanvas(); // Initial call
 // restart on SPACE
 document.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
-    init_vars();
+    event.preventDefault();
+    updateControls();
   }
 });
+
+// INPUTS
+const length_1_slider = document.getElementById("length_1");
+const length_2_slider = document.getElementById("length_2");
+
+const mass_1_slider = document.getElementById("mass_1");
+const mass_2_slider = document.getElementById("mass_2");
+
+const angle_1_slider = document.getElementById("angle_1");
+const angle_2_slider = document.getElementById("angle_2");
+
+const length_1_value = document.getElementById("length_1_value");
+const length_2_value = document.getElementById("length_2_value");
+
+const mass_1_value = document.getElementById("mass_1_value");
+const mass_2_value = document.getElementById("mass_2_value");
+
+const angle_1_value = document.getElementById("angle_1_value");
+const angle_2_value = document.getElementById("angle_2_value");
+
+[
+  length_1_slider,
+  length_2_slider,
+  mass_1_slider,
+  mass_2_slider,
+  angle_1_slider,
+  angle_2_slider,
+].forEach((slider) => {
+  slider.addEventListener("input", updateControls);
+});
+
+updateControls();
+requestAnimationFrame(draw);
+
+function init_vars() {
+  l1 = Number(length_1_slider.value);
+  l2 = Number(length_2_slider.value);
+
+  m1 = Number(mass_1_slider.value);
+  m2 = Number(mass_2_slider.value);
+
+  angle1 = Number(angle_1_slider.value) * DEG2RAD;
+  angle2 = Number(angle_2_slider.value) * DEG2RAD;
+
+  angle1_d = 0;
+  angle2_d = 0;
+
+  trace_queue = [];
+}
+
+function updateControls() {
+  length_1_value.textContent = length_1_slider.value;
+  length_2_value.textContent = length_2_slider.value;
+
+  mass_1_value.textContent = mass_1_slider.value;
+  mass_2_value.textContent = mass_2_slider.value;
+
+  angle_1_value.textContent = angle_1_slider.value;
+  angle_2_value.textContent = angle_2_slider.value;
+
+  init_vars();
+}
