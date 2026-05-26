@@ -66,7 +66,7 @@ function drawPendulum(startX, startY, angle, length) {
   const { x: endX, y: endY } = calcEndPoints(startX, startY, angle, length);
 
   drawLine(startX, startY, endX, endY, "white", 2);
-  drawCircle(endX, endY, 25);
+  drawCircle(endX, endY, 20);
 }
 
 function calcEndPoints(startX, startY, angle, length) {
@@ -75,12 +75,35 @@ function calcEndPoints(startX, startY, angle, length) {
   return { x: endX, y: endY };
 }
 
+let trace_queue = [];
+const MAX_TRACE_LEN = 120;
+const defaultColorRGBA = [237, 37, 78, 255];
+
+function drawTrail(xPos, yPos) {
+  trace_queue.push({ xPos, yPos });
+  if (trace_queue.length > MAX_TRACE_LEN) {
+    trace_queue.shift();
+  }
+
+  const curr_length = trace_queue.length;
+
+  for (let i = 0; i < curr_length; i++) {
+    const opacity = i / curr_length;
+    const color = `rgba(237, 37, 78, ${opacity})`;
+
+    drawCircle(trace_queue[i].xPos, trace_queue[i].yPos, 2, color);
+  }
+}
+
 function drawDoublePendulum(startX, startY, angle1, length1, angle2, length2) {
   const { x: endX, y: endY } = calcEndPoints(startX, startY, angle1, length1);
   drawPendulum(endX, endY, angle2, length2);
 
   // drawing first one later so that it comes on top of second one
   drawPendulum(startX, startY, angle1, length1);
+
+  const { x: end2X, y: end2Y } = calcEndPoints(endX, endY, angle2, length2);
+  drawTrail(end2X, end2Y);
 }
 
 let l1, l2, m1, m2, angle1, angle2, angle1_d, angle2_d;
@@ -97,6 +120,9 @@ function init_vars(length1 = 200, length2 = 150, mass1 = 1, mass2 = 1) {
 
   angle1_d = 0;
   angle2_d = 0;
+
+  // resetting trace
+  trace_queue = [];
 }
 
 // const G = 9.8;
@@ -170,7 +196,6 @@ requestAnimationFrame(draw);
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  draw(); // draw the contents
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas(); // Initial call
@@ -179,6 +204,5 @@ resizeCanvas(); // Initial call
 document.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
     init_vars();
-    draw();
   }
 });
