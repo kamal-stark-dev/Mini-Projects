@@ -20,39 +20,31 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  if (argc == 2) 
-  {
-    // write to the specified file 
-    FILE *fp = fopen(argv[1], "w");
+  char *mode = "w";
 
-    int ch;
-    while ((ch = getchar()) != EOF) 
+  if (argc == 3) {
+    if (strcmp(argv[1], "-a"))
     {
-      putc(ch, fp);
-    }
-
-    fclose(fp);
-  }
-
-  else if (argc == 3) 
-  {
-    if (strcmp(argv[1], "-a") == 0) 
-    {
-      // append to the specified file 
-      FILE *fp = fopen(argv[2], "a");
-
-      int ch;
-      while ((ch = getchar()) != EOF) 
-      {
-        putc(ch, fp);
-      }
-
-      fclose(fp);
+      mode = "a";
     }
     else 
     {
-      printf("Option: %s is not valid.\n", argv[1]);
+      fprintf(stderr, "Invalid option: %s\n", argv[1]);
       return 1;
     }
   }
+
+  FILE *fp = fopen(argc == 2 ? argv[1] : argv[2], mode);
+
+  char ch;
+  while ((ch = getchar()) != EOF)
+  {
+    putchar(ch);
+
+    putc(ch, fp);
+  }
+
+  fclose(fp);
+
+  return 0;
 }
