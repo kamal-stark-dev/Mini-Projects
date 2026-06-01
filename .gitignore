@@ -1,3 +1,11 @@
 .vscode
 *.exe
 **/*.exe
+
+# ignore any dat file
+*.dat
+
+# uv project ignores
+uv.lock
+.python-version
+.venv
